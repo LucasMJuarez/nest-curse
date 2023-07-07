@@ -7,10 +7,10 @@ import {
   Body,
   Patch,
   Delete,
-} from '@nestjs/common';
-import { CarsService } from './cars.service';
+} from "@nestjs/common";
+import { CarsService } from "./cars.service";
 
-@Controller('cars')
+@Controller("cars")
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
@@ -19,8 +19,8 @@ export class CarsController {
     return this.carsService.findAll();
   }
 
-  @Get(':id')
-  getCarById(@Param('id', ParseIntPipe) id: number) {
+  @Get(":id")
+  getCarById(@Param("id") id: string) {
     console.log({ id });
     return this.carsService.findOneById(id);
   }
@@ -30,13 +30,13 @@ export class CarsController {
     return body;
   }
 
-  @Patch(':id')
+  @Patch(":id")
   updateCar(@Body() body: any) {
     return body;
   }
 
-  @Delete(':id')
-  deleteCar(@Param('id', ParseIntPipe) id: number) {
+  @Delete(":id")
+  deleteCar(@Param("id", ParseIntPipe) id: number) {
     return `Car with id ${id} deleted`;
   }
 }
