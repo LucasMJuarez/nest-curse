@@ -7,10 +7,12 @@ import {
   Body,
   Patch,
   Delete,
-} from "@nestjs/common";
-import { CarsService } from "./cars.service";
+  ParseUUIDPipe,
+} from '@nestjs/common';
+import { CarsService } from './cars.service';
+import { CreateCarDto } from './dto/create-car.dto';
 
-@Controller("cars")
+@Controller('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
@@ -20,14 +22,14 @@ export class CarsController {
   }
 
   @Get(":id")
-  getCarById(@Param("id") id: string) {
+  getCarById(@Param("id", ParseUUIDPipe) id: string) {
     console.log({ id });
     return this.carsService.findOneById(id);
   }
 
   @Post()
-  createCar(@Body() body: any) {
-    return body;
+  createCar(@Body() createCarDto: CreateCarDto) {
+    return createCarDto;
   }
 
   @Patch(":id")
