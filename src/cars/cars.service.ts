@@ -45,5 +45,22 @@ export class CarsService {
     return car;
   }
 
-  update(id: string, updateCarDto: UpdateCarDto) {}
+  update(id: string, updateCarDto: UpdateCarDto) {
+    let carDB = this.findOneById(id);
+
+    if (updateCarDto.id && updateCarDto.id !== id)
+      throw new NotFoundException(`Car with id ${id} not found`);
+    this.cars = this.cars.map((car) => {
+      if (car.id === id) {
+        carDB = {
+          ...car,
+          ...updateCarDto,
+          id,
+        };
+        return carDB;
+      }
+      return car;
+    });
+    return carDB;
+  }
 }
